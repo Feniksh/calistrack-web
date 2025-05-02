@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalisTrack - Web</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      color: #333;
+    }
+    header {
+      background-color: #4f46e5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #4f46e5;
+    }
+    .task {
+      padding: 12px 15px;
+      margin: 8px 0;
+      border-radius: 8px;
+      background: #e0e7ff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .task:hover {
+      background: #c7d2fe;
+    }
+    .done {
+      background: #bbf7d0;
+      text-decoration: line-through;
+      color: #1e3a8a;
+    }
+    .inputPeso {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    button {
+      padding: 10px 16px;
+      font-size: 1rem;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background-color: #4338ca;
+    }
+    .grafico {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>CalisTrack - Web</header>
+  <main>
+    <div class="section">
+      <h2>✅ Tarefas do Dia</h2>
+      <div id="tarefas"></div>
+    </div>
+
+    <div class="section">
+      <h2>🏋️ Treino de Hoje: Peito + Tríceps</h2>
+      <ul>
+        <li>Flexão normal: 3x12</li>
+        <li>Flexão diamante: 3x8</li>
+        <li>Dips: 3x10</li>
+        <li>Prancha: 3x40s</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>⚖️ Registro de Peso</h2>
+      <input type="number" id="pesoInput" class="inputPeso" placeholder="Digite seu peso (kg)" />
+      <button onclick="registrarPeso()">Salvar Peso</button>
+      <div class="grafico" id="historicoPeso"></div>
+    </div>
+  </main>
+
+  <script>
+    const tarefas = [
+      { id: 'treino', nome: 'Treino concluído' },
+      { id: 'agua', nome: 'Hidratado hoje' },
+      { id: 'comida', nome: 'Alimentação controlada' },
+      { id: 'sono', nome: 'Sono suficiente' },
+    ];
+
+    const estadoTarefas = JSON.parse(localStorage.getItem('estadoTarefas')) || {};
+    const divTarefas = document.getElementById('tarefas');
+
+    tarefas.forEach((tarefa) => {
+      const el = document.createElement('div');
+      el.className = 'task';
+      el.textContent = tarefa.nome;
+      if (estadoTarefas[tarefa.id]) el.classList.add('done');
+
+      el.onclick = () => {
+        estadoTarefas[tarefa.id] = !estadoTarefas[tarefa.id];
+        localStorage.setItem('estadoTarefas', JSON.stringify(estadoTarefas));
+        el.classList.toggle('done');
+      };
+
+      divTarefas.appendChild(el);
+    });
+
+    function registrarPeso() {
+      const input = document.getElementById('pesoInput');
+      const peso = input.value.trim();
+      if (peso) {
+        const historico = JSON.parse(localStorage.getItem('pesos')) || [];
+        historico.push({ data: new Date().toLocaleDateString(), peso });
+        localStorage.setItem('pesos', JSON.stringify(historico));
+        input.value = '';
+        mostrarHistorico();
+      }
+    }
+
+    function mostrarHistorico() {
+      const div = document.getElementById('historicoPeso');
+      const historico = JSON.parse(localStorage.getItem('pesos')) || [];
+      div.innerHTML = '<strong>Histórico:</strong><br>' + historico.map(p => `${p.data}: ${p.peso}kg`).join('<br>');
+    }
+
+    mostrarHistorico();
+  </script>
+</body>
+</html>
