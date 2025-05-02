@@ -1,160 +1,150 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalisTrack - Web</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      color: #333;
-    }
-    header {
-      background-color: #4f46e5;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    main {
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    .section {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    }
-    .section h2 {
-      margin-top: 0;
-      color: #4f46e5;
-    }
-    .task {
-      padding: 12px 15px;
-      margin: 8px 0;
-      border-radius: 8px;
-      background: #e0e7ff;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .task:hover {
-      background: #c7d2fe;
-    }
-    .done {
-      background: #bbf7d0;
-      text-decoration: line-through;
-      color: #1e3a8a;
-    }
-    .inputPeso {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin: 10px 0;
-      font-size: 1rem;
-    }
-    button {
-      padding: 10px 16px;
-      font-size: 1rem;
-      background-color: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    button:hover {
-      background-color: #4338ca;
-    }
-    .grafico {
-      font-size: 14px;
-      color: #555;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalisTrack Web - App de Treino</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74b9ff, #a29bfe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .exercise-container {
+            margin-bottom: 30px;
+        }
+        .exercise-card {
+            background: #2d3436;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: scale(1.05);
+        }
+        .exercise-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .button {
+            background: #00b894;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #00cec9;
+        }
+        .timer {
+            font-size: 2rem;
+            margin: 20px 0;
+            padding: 15px;
+            background: #2d3436;
+            border-radius: 10px;
+            width: 200px;
+            margin: 0 auto;
+        }
+        .timer-controls button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 10px;
+            background: #e74c3c;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+        }
+        .timer-controls button:hover {
+            background: #d63031;
+        }
+    </style>
 </head>
 <body>
-  <header>CalisTrack - Web</header>
-  <main>
-    <div class="section">
-      <h2>✅ Tarefas do Dia</h2>
-      <div id="tarefas"></div>
+    <div class="container">
+        <h1>CalisTrack Web - Controle de Exercícios</h1>
+
+        <div class="exercise-container">
+            <div class="exercise-card">
+                <div class="exercise-title">Flexão</div>
+                <p>Faça 3 séries de 15 repetições</p>
+                <button class="button">Iniciar Exercício</button>
+            </div>
+            <div class="exercise-card">
+                <div class="exercise-title">Abdominal</div>
+                <p>Faça 3 séries de 20 repetições</p>
+                <button class="button">Iniciar Exercício</button>
+            </div>
+            <div class="exercise-card">
+                <div class="exercise-title">Agachamento</div>
+                <p>Faça 3 séries de 20 repetições</p>
+                <button class="button">Iniciar Exercício</button>
+            </div>
+        </div>
+
+        <div class="timer">
+            <p>Restando:</p>
+            <span id="time">00:00</span>
+        </div>
+
+        <div class="timer-controls">
+            <button id="startTimer">Iniciar</button>
+            <button id="stopTimer">Parar</button>
+        </div>
     </div>
 
-    <div class="section">
-      <h2>🏋️ Treino de Hoje: Peito + Tríceps</h2>
-      <ul>
-        <li>Flexão normal: 3x12</li>
-        <li>Flexão diamante: 3x8</li>
-        <li>Dips: 3x10</li>
-        <li>Prancha: 3x40s</li>
-      </ul>
-    </div>
+    <script>
+        let timer;
+        let seconds = 0;
+        let minutes = 0;
+        let isRunning = false;
 
-    <div class="section">
-      <h2>⚖️ Registro de Peso</h2>
-      <input type="number" id="pesoInput" class="inputPeso" placeholder="Digite seu peso (kg)" />
-      <button onclick="registrarPeso()">Salvar Peso</button>
-      <div class="grafico" id="historicoPeso"></div>
-    </div>
-  </main>
+        // Função para formatar o tempo
+        function formatTime() {
+            return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        }
 
-  <script>
-    const tarefas = [
-      { id: 'treino', nome: 'Treino concluído' },
-      { id: 'agua', nome: 'Hidratado hoje' },
-      { id: 'comida', nome: 'Alimentação controlada' },
-      { id: 'sono', nome: 'Sono suficiente' },
-    ];
+        // Função para iniciar o cronômetro
+        document.getElementById('startTimer').addEventListener('click', function() {
+            if (!isRunning) {
+                isRunning = true;
+                timer = setInterval(function() {
+                    seconds++;
+                    if (seconds === 60) {
+                        seconds = 0;
+                        minutes++;
+                    }
+                    document.getElementById('time').textContent = formatTime();
+                }, 1000);
+            }
+        });
 
-    const estadoTarefas = JSON.parse(localStorage.getItem('estadoTarefas')) || {};
-    const divTarefas = document.getElementById('tarefas');
-
-    tarefas.forEach((tarefa) => {
-      const el = document.createElement('div');
-      el.className = 'task';
-      el.textContent = tarefa.nome;
-      if (estadoTarefas[tarefa.id]) el.classList.add('done');
-
-      el.onclick = () => {
-        estadoTarefas[tarefa.id] = !estadoTarefas[tarefa.id];
-        localStorage.setItem('estadoTarefas', JSON.stringify(estadoTarefas));
-        el.classList.toggle('done');
-      };
-
-      divTarefas.appendChild(el);
-    });
-
-    function registrarPeso() {
-      const input = document.getElementById('pesoInput');
-      const peso = input.value.trim();
-      if (peso) {
-        const historico = JSON.parse(localStorage.getItem('pesos')) || [];
-        historico.push({ data: new Date().toLocaleDateString(), peso });
-        localStorage.setItem('pesos', JSON.stringify(historico));
-        input.value = '';
-        mostrarHistorico();
-      }
-    }
-
-    function mostrarHistorico() {
-      const div = document.getElementById('historicoPeso');
-      const historico = JSON.parse(localStorage.getItem('pesos')) || [];
-      div.innerHTML = '<strong>Histórico:</strong><br>' + historico.map(p => `${p.data}: ${p.peso}kg`).join('<br>');
-    }
-
-    mostrarHistorico();
-  </script>
+        // Função para parar o cronômetro
+        document.getElementById('stopTimer').addEventListener('click', function() {
+            clearInterval(timer);
+            isRunning = false;
+        });
+    </script>
 </body>
 </html>
