@@ -3,114 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalisTrack Web - App de Treino</title>
+    <title>App de Academia - SmartFit</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #74b9ff, #a29bfe);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: #f7f7f7;
+            color: #333;
+        }
+        header {
+            background-color: #2D3B56;
             color: white;
+            padding: 15px;
             text-align: center;
         }
+        header h1 {
+            font-size: 2.5rem;
+        }
         .container {
-            width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 12px;
         }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-        .exercise-container {
-            margin-bottom: 30px;
-        }
-        .exercise-card {
-            background: #2d3436;
+        .card {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
             padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
             transition: transform 0.3s ease;
         }
-        .exercise-card:hover {
+        .card:hover {
             transform: scale(1.05);
         }
-        .exercise-title {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .card h3 {
+            font-size: 1.5rem;
         }
         .button {
-            background: #00b894;
-            border: none;
+            background-color: #00b894;
+            color: white;
             padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-size: 1.1rem;
+            margin-top: 15px;
         }
         .button:hover {
-            background: #00cec9;
+            background-color: #00cec9;
         }
         .timer {
+            display: flex;
+            justify-content: center;
             font-size: 2rem;
             margin: 20px 0;
-            padding: 15px;
-            background: #2d3436;
-            border-radius: 10px;
-            width: 200px;
-            margin: 0 auto;
         }
         .timer-controls button {
             font-size: 1.5rem;
             padding: 10px 20px;
-            margin: 10px;
-            background: #e74c3c;
+            margin: 0 10px;
+            background-color: #e74c3c;
             border: none;
-            border-radius: 10px;
             color: white;
             cursor: pointer;
+            border-radius: 8px;
         }
         .timer-controls button:hover {
-            background: #d63031;
+            background-color: #d63031;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .exercise-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .exercise-item {
+            width: 30%;
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .exercise-item img {
+            width: 100%;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
+
+    <header>
+        <h1>SmartFit - App de Academia</h1>
+    </header>
+
     <div class="container">
-        <h1>CalisTrack Web - Controle de Exercícios</h1>
+        <!-- Cadastro de Usuário -->
+        <div class="card">
+            <h3>Cadastro de Usuário</h3>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Digite seu email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="button">Cadastrar</button>
+            </form>
+        </div>
 
-        <div class="exercise-container">
-            <div class="exercise-card">
-                <div class="exercise-title">Flexão</div>
-                <p>Faça 3 séries de 15 repetições</p>
-                <button class="button">Iniciar Exercício</button>
-            </div>
-            <div class="exercise-card">
-                <div class="exercise-title">Abdominal</div>
-                <p>Faça 3 séries de 20 repetições</p>
-                <button class="button">Iniciar Exercício</button>
-            </div>
-            <div class="exercise-card">
-                <div class="exercise-title">Agachamento</div>
-                <p>Faça 3 séries de 20 repetições</p>
-                <button class="button">Iniciar Exercício</button>
+        <!-- Plano de Treinos -->
+        <div class="card">
+            <h3>Plano de Treino</h3>
+            <div class="exercise-list">
+                <div class="exercise-item">
+                    <h4>Flexão</h4>
+                    <img src="https://via.placeholder.com/150" alt="Exercício Flexão">
+                    <p>Faça 3 séries de 15 repetições</p>
+                    <button class="button">Iniciar Treino</button>
+                </div>
+                <div class="exercise-item">
+                    <h4>Abdominal</h4>
+                    <img src="https://via.placeholder.com/150" alt="Exercício Abdominal">
+                    <p>Faça 3 séries de 20 repetições</p>
+                    <button class="button">Iniciar Treino</button>
+                </div>
+                <div class="exercise-item">
+                    <h4>Agachamento</h4>
+                    <img src="https://via.placeholder.com/150" alt="Exercício Agachamento">
+                    <p>Faça 3 séries de 20 repetições</p>
+                    <button class="button">Iniciar Treino</button>
+                </div>
             </div>
         </div>
 
-        <div class="timer">
-            <p>Restando:</p>
-            <span id="time">00:00</span>
-        </div>
-
-        <div class="timer-controls">
-            <button id="startTimer">Iniciar</button>
-            <button id="stopTimer">Parar</button>
+        <!-- Cronômetro -->
+        <div class="card">
+            <h3>Cronômetro de Treino</h3>
+            <div class="timer" id="timer">00:00</div>
+            <div class="timer-controls">
+                <button id="startTimer">Iniciar</button>
+                <button id="stopTimer">Parar</button>
+            </div>
         </div>
     </div>
 
@@ -125,7 +177,7 @@
             return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
         }
 
-        // Função para iniciar o cronômetro
+        // Iniciar o cronômetro
         document.getElementById('startTimer').addEventListener('click', function() {
             if (!isRunning) {
                 isRunning = true;
@@ -135,15 +187,24 @@
                         seconds = 0;
                         minutes++;
                     }
-                    document.getElementById('time').textContent = formatTime();
+                    document.getElementById('timer').textContent = formatTime();
                 }, 1000);
             }
         });
 
-        // Função para parar o cronômetro
+        // Parar o cronômetro
         document.getElementById('stopTimer').addEventListener('click', function() {
             clearInterval(timer);
             isRunning = false;
+        });
+
+        // Cadastro de Usuário
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            alert('Usuário ' + name + ' cadastrado com sucesso!');
         });
     </script>
 </body>
